@@ -9,7 +9,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'My Todo App',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -26,7 +27,56 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: TodoListPage(title: 'Todo List Page'),
+    );
+  }
+}
+
+class TodoListPage extends StatelessWidget {
+  /// Page Title
+  final String title;
+
+  TodoListPage({Key key, this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(this.title),
+      ),
+      body: Center(
+        child: Text('Todoリスト一覧画面'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Move to next page using push function
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return TodoAddPage(title: this.title);
+            }),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class TodoAddPage extends StatelessWidget {
+  final String title;
+
+  TodoAddPage({Key key, this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(this.title),
+      ),
+      body: Center(
+        child: Text('Todoリスト追加画面'),
+      ),
     );
   }
 }
