@@ -1,4 +1,4 @@
-# my_todo_app
+# flutter-my-todo-app
 
 A new Flutter project, and my practice project.
 Ref) [Flutterで始めるアプリ開発](https://www.flutter-study.dev/)
