@@ -94,7 +94,7 @@ class _TodoListPageState extends State<HomeScreen> {
                     setState(() {});
                   },
                 ),
-                Text('Pined'),
+                Text('Stared'),
               ],
             ),
           ],
