@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_todo_app/views/add_todo/new_todo_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  HomeScreen({Key key}) : super(key: key);
+
   @override
   _TodoListPageState createState() => _TodoListPageState();
 }
@@ -33,6 +35,8 @@ class _TodoListPageState extends State<HomeScreen> {
         },
         child: Icon(Icons.add),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: buildBottomAppBar(),
     );
   }
 
@@ -53,6 +57,49 @@ class _TodoListPageState extends State<HomeScreen> {
           ),
         );
       },
+    );
+  }
+
+  BottomAppBar buildBottomAppBar() {
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      child: Container(
+        height: 75,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  iconSize: 30.0,
+                  icon: Icon(Icons.list),
+                  onPressed: () {
+                    setState(() {});
+                  },
+                ),
+                Text('Todo'),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  iconSize: 30.0,
+                  icon: Icon(Icons.star),
+                  onPressed: () {
+                    setState(() {});
+                  },
+                ),
+                Text('Pined'),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
