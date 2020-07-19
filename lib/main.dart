@@ -28,26 +28,27 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: TodoListPage(title: 'Todo List Page'),
+      home: TodoListPage(),
     );
   }
 }
 
-class TodoListPage extends StatelessWidget {
-  /// Page Title
-  final String title;
+class TodoListPage extends StatefulWidget {
+  @override
+  _TodoListPageState createState() => _TodoListPageState();
+}
 
-  /// Todos
-  List<String> todoList = ["Todo 0", "Todo 1", "Todo 2"];
+class _TodoListPageState extends State<TodoListPage> {
+  final String pageTitle = 'My Todo';
 
-  TodoListPage({Key key, this.title}) : super(key: key);
+  List<String> todoList = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text(this.title),
+        title: Text(this.pageTitle),
       ),
       body: ListView.builder(
         itemCount: todoList.length,
@@ -60,13 +61,19 @@ class TodoListPage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           // Move to next page using push function
-          Navigator.of(context).push(
+          // Get the todo content from TodoAddPage
+          final newTodoTitle = await Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
-              return TodoAddPage(title: this.title);
+              return TodoAddPage();
             }),
           );
+          if (newTodoTitle != null) {
+            setState(() {
+              todoList.add(newTodoTitle);
+            });
+          }
         },
         child: Icon(Icons.add),
       ),
@@ -74,20 +81,74 @@ class TodoListPage extends StatelessWidget {
   }
 }
 
-class TodoAddPage extends StatelessWidget {
-  final String title;
+class TodoAddPage extends StatefulWidget {
+  @override
+  _TodoAddPageState createState() => _TodoAddPageState();
+}
 
-  TodoAddPage({Key key, this.title}) : super(key: key);
+class _TodoAddPageState extends State<TodoAddPage> {
+  final String pageTitle = '追加';
+
+  String _todoTitle = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text(this.title),
+        title: Text(this.pageTitle),
       ),
       body: Center(
-        child: Text('Todoリスト追加画面'),
+        child: Container(
+          margin: EdgeInsets.all(20),
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Title",
+                ),
+                onChanged: (String value) {
+                  setState(() {
+                    _todoTitle = value;
+                  });
+                },
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(20),
+                      child: RaisedButton(
+                        color: Colors.blue,
+                        onPressed: () {
+                          Navigator.of(context).pop(_todoTitle);
+                        },
+                        child: Text(
+                          "作成",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(20),
+                      child: RaisedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          "キャンセル",
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
