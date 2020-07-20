@@ -22,7 +22,7 @@ RUN cd /home/gitpod && \
   tar -xvf flutter_sdk.tar.xz && rm flutter_sdk.tar.xz
 
 # Web is available on master dev
-RUN $FLUTTER_HOME/bin/flutter channel dev && $FLUTTER_HOME/bin/flutter upgrade && $FLUTTER_HOME/bin/flutter config --enable-web
+RUN $FLUTTER_HOME/bin/flutter channel beta && $FLUTTER_HOME/bin/flutter upgrade && $FLUTTER_HOME/bin/flutter config --enable-web
 
 # Change the PUB_CACHE to /workspace so dependencies are preserved.
 ENV PUB_CACHE=/workspace/.pub_cache
@@ -31,4 +31,4 @@ ENV PUB_CACHE=/workspace/.pub_cache
 RUN echo 'export PATH=${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${PUB_CACHE}/bin:${FLUTTER_HOME}/.pub-cache/bin:$PATH' >>~/.bashrc
 
 # Change flutter sdk channel
-RUN flutter channel beta && flutter upgrade
+# RUN flutter channel beta && flutter upgrade
