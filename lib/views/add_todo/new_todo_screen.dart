@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_todo_app/models/todo.dart';
 
 class TodoAddPage extends StatefulWidget {
   TodoAddPage({Key key}) : super(key: key);
@@ -11,6 +12,9 @@ class _TodoAddPageState extends State<TodoAddPage> {
   final String pageTitle = '追加';
 
   String _todoTitle = '';
+  String _todoDetail = '';
+  bool _isDone = false;
+  bool _isStared = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +22,89 @@ class _TodoAddPageState extends State<TodoAddPage> {
       appBar: buildAppBar(),
       body: Center(
         child: Container(
-          margin: EdgeInsets.all(20),
           child: Column(
             children: <Widget>[
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Title",
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Todo title",
+                  ),
+                  onChanged: (String value) {
+                    setState(() {
+                      _todoTitle = value;
+                    });
+                  },
                 ),
-                onChanged: (String value) {
-                  setState(() {
-                    _todoTitle = value;
-                  });
-                },
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: TextFormField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    // border: OutlineInputBorder(),
+                    labelText: "Todo details",
+                  ),
+                  onChanged: (String value) {
+                    setState(() {
+                      _todoDetail = value;
+                    });
+                  },
+                ),
+              ),
+              Column(
+                children: [
+                  new CheckboxListTile(
+                    value: _isDone,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: Text(
+                      "Done",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onChanged: (bool value0) {
+                      setState(() {
+                        _isDone = value0;
+                      });
+                    },
+                  ),
+                  new CheckboxListTile(
+                    value: _isStared,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: Text(
+                      "Important",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onChanged: (bool value1) {
+                      setState(() {
+                        _isStared = value1;
+                      });
+                    },
+                  ),
+                ],
               ),
               Row(
                 children: [
                   Expanded(
                     child: Container(
                       margin: EdgeInsets.all(20),
-                      child: RaisedButton(
-                        color: Colors.blue,
-                        onPressed: () {
-                          Navigator.of(context).pop(_todoTitle);
-                        },
-                        child: Text(
-                          "作成",
-                          style: TextStyle(color: Colors.white),
+                      child: ButtonTheme(
+                        height: 50.0,
+                        child: RaisedButton(
+                          color: Colors.blue,
+                          onPressed: () {
+                            Navigator.of(context).pop(Todo(
+                                _todoTitle, _todoDetail, _isDone, _isStared));
+                          },
+                          child: Text(
+                            "作成",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
@@ -52,12 +112,16 @@ class _TodoAddPageState extends State<TodoAddPage> {
                   Expanded(
                     child: Container(
                       margin: EdgeInsets.all(20),
-                      child: RaisedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          "キャンセル",
+                      child: ButtonTheme(
+                        height: 50.0,
+                        buttonColor: Colors.grey,
+                        child: RaisedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            "キャンセル",
+                          ),
                         ),
                       ),
                     ),

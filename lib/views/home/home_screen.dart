@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:my_todo_app/models/todo.dart';
 import 'package:my_todo_app/views/add_todo/new_todo_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 class _TodoListPageState extends State<HomeScreen> {
   final String pageTitle = 'My Todo';
 
-  List<String> todoList = [];
+  List<Todo> todoList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +24,14 @@ class _TodoListPageState extends State<HomeScreen> {
         onPressed: () async {
           // Move to next page using push function
           // Get the todo content from TodoAddPage
-          final newTodoTitle = await Navigator.of(context).push(
+          final Todo newTodo = await Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
               return TodoAddPage();
             }),
           );
-          if (newTodoTitle != null) {
+          if (newTodo != null) {
             setState(() {
-              todoList.add(newTodoTitle);
+              todoList.add(newTodo);
             });
           }
         },
@@ -53,7 +55,7 @@ class _TodoListPageState extends State<HomeScreen> {
       itemBuilder: (context, index) {
         return Card(
           child: ListTile(
-            title: Text(todoList[index]),
+            title: Text(todoList[index].getTitle()),
           ),
         );
       },
@@ -63,6 +65,7 @@ class _TodoListPageState extends State<HomeScreen> {
   BottomAppBar buildBottomAppBar() {
     return BottomAppBar(
       shape: CircularNotchedRectangle(),
+      color: Colors.blue,
       child: Container(
         height: 75,
         child: Row(
@@ -76,11 +79,17 @@ class _TodoListPageState extends State<HomeScreen> {
                 IconButton(
                   iconSize: 30.0,
                   icon: Icon(Icons.list),
+                  color: Colors.white,
                   onPressed: () {
                     setState(() {});
                   },
                 ),
-                Text('Todo'),
+                Text(
+                  'Todo',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
             Column(
@@ -90,11 +99,17 @@ class _TodoListPageState extends State<HomeScreen> {
                 IconButton(
                   iconSize: 30.0,
                   icon: Icon(Icons.star),
+                  color: Colors.white,
                   onPressed: () {
                     setState(() {});
                   },
                 ),
-                Text('Stared'),
+                Text(
+                  'Stared',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
           ],
