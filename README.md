@@ -1,9 +1,17 @@
 # flutter-my-todo-app
 
+[![Gitpod Ready to Code](https://img.shields.io/badge/Gitpod-Ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Danboruya/flutter-my-todo-app)
+[![License](https://img.shields.io/badge/License-Apache--2.0-brightgreen)](https://github.com/Danboruya/flutter-my-todo-app/blob/master/LICENSE)
+
 A new Flutter project, and my practice project.
-Ref) [Flutterで始めるアプリ開発](https://www.flutter-study.dev/)
+Ref) [Flutterで始めるアプリ開発](https://www.flutter-study.dev/)  
+
+In this project, we provide Todo list application using Flutter frameworks.
 
 ## Getting Started
+
+This project now available on Gidpod.
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Danboruya/flutter-my-todo-app)
 
 This project is a starting point for a Flutter application.
 
