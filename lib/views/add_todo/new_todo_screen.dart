@@ -99,7 +99,8 @@ class _TodoAddPageState extends State<TodoAddPage> {
                           color: Colors.blue,
                           onPressed: () {
                             Navigator.of(context).pop(Todo(
-                                _todoTitle, _todoDetail, _isDone, _isStared));
+                                _todoTitle, _todoDetail,
+                                isDone: _isDone, isStared: _isStared));
                           },
                           child: Text(
                             "作成",

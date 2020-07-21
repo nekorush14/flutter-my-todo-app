@@ -55,7 +55,7 @@ class _TodoListPageState extends State<HomeScreen> {
       itemBuilder: (context, index) {
         return Card(
           child: ListTile(
-            title: Text(todoList[index].getTitle()),
+            title: Text(todoList[index].title),
           ),
         );
       },
