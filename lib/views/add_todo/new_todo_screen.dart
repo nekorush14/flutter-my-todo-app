@@ -20,8 +20,8 @@ class _TodoAddPageState extends State<TodoAddPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Center(
-        child: Container(
+      body: Container(
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Padding(
