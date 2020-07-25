@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_todo_app/models/todo.dart';
 import 'package:my_todo_app/views/add_todo/new_todo_screen.dart';
+import 'package:my_todo_app/views/detail/detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -53,9 +54,18 @@ class _TodoListPageState extends State<HomeScreen> {
     return ListView.builder(
       itemCount: todoList.length,
       itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            title: Text(todoList[index].title),
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) {
+                return TodoDetailPage(todo: todoList[index]);
+              }),
+            );
+          },
+          child: Card(
+            child: ListTile(
+              title: Text(todoList[index].title),
+            ),
           ),
         );
       },

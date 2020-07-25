@@ -20,7 +20,7 @@ class Todo {
 
   set title(String title) => this._title = title;
 
-  set details(String details) => this._details = _details;
+  set details(String details) => this._details = details;
 
   set todoDoneState(bool isDone) => this._isDone = isDone;
 
