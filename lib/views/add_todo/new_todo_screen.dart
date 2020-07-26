@@ -2,19 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:my_todo_app/models/todo.dart';
 
 class TodoAddPage extends StatefulWidget {
-  TodoAddPage({Key key}) : super(key: key);
+  final Todo todo;
+
+  TodoAddPage({Key key, this.todo}) : super(key: key);
 
   @override
-  _TodoAddPageState createState() => _TodoAddPageState();
+  _TodoAddPageState createState() => _TodoAddPageState(this.todo);
 }
 
 class _TodoAddPageState extends State<TodoAddPage> {
-  final String pageTitle = '追加';
-
+  String _pageTitle = '追加';
+  String _acceptButton = '作成';
+  Todo todo;
   String _todoTitle = '';
   String _todoDetail = '';
   bool _isDone = false;
   bool _isStared = false;
+
+  _TodoAddPageState(this.todo) {
+    if (this.todo != null) {
+      this._pageTitle = '更新';
+      this._acceptButton = '更新';
+      this._todoTitle = todo.title;
+      this._todoDetail = todo.details;
+      this._isDone = todo.isDone;
+      this._isStared = todo.isStared;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +45,7 @@ class _TodoAddPageState extends State<TodoAddPage> {
                     border: OutlineInputBorder(),
                     labelText: "Todo title",
                   ),
+                  initialValue: _todoTitle,
                   onChanged: (String value) {
                     setState(() {
                       _todoTitle = value;
@@ -47,6 +62,7 @@ class _TodoAddPageState extends State<TodoAddPage> {
                     // border: OutlineInputBorder(),
                     labelText: "Todo details",
                   ),
+                  initialValue: _todoDetail,
                   onChanged: (String value) {
                     setState(() {
                       _todoDetail = value;
@@ -72,7 +88,7 @@ class _TodoAddPageState extends State<TodoAddPage> {
                     },
                   ),
                   new CheckboxListTile(
-                    value: _isStared,
+                    value: this._isStared,
                     controlAffinity: ListTileControlAffinity.leading,
                     title: Text(
                       "Important",
@@ -82,7 +98,7 @@ class _TodoAddPageState extends State<TodoAddPage> {
                     ),
                     onChanged: (bool value1) {
                       setState(() {
-                        _isStared = value1;
+                        this._isStared = value1;
                       });
                     },
                   ),
@@ -98,12 +114,20 @@ class _TodoAddPageState extends State<TodoAddPage> {
                         child: RaisedButton(
                           color: Colors.blue,
                           onPressed: () {
-                            Navigator.of(context).pop(Todo(
-                                _todoTitle, _todoDetail,
-                                isDone: _isDone, isStared: _isStared));
+                            if (this.todo == null) {
+                              todo = Todo(_todoTitle, _todoDetail,
+                                  isDone: _isDone, isStared: _isStared);
+                              Navigator.of(context).pop(this.todo);
+                            } else {
+                              todo.title = _todoTitle;
+                              todo.details = _todoDetail;
+                              todo.todoDoneState = _isDone;
+                              todo.todoStarState = _isStared;
+                              Navigator.of(context).pop();
+                            }
                           },
                           child: Text(
-                            "作成",
+                            this._acceptButton,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -139,7 +163,7 @@ class _TodoAddPageState extends State<TodoAddPage> {
   AppBar buildAppBar() {
     return AppBar(
       centerTitle: false,
-      title: Text(this.pageTitle),
+      title: Text(this._pageTitle),
     );
   }
 }
