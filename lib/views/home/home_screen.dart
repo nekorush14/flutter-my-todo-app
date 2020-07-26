@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_todo_app/models/todo.dart';
 import 'package:my_todo_app/views/add_todo/new_todo_screen.dart';
-import 'package:my_todo_app/views/detail/detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -55,16 +54,22 @@ class _TodoListPageState extends State<HomeScreen> {
       itemCount: todoList.length,
       itemBuilder: (context, index) {
         return GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
+          onTap: () async {
+            await Navigator.of(context).push(
               MaterialPageRoute(builder: (context) {
-                return TodoDetailPage(todo: todoList[index]);
+                return TodoAddPage(todo: todoList[index]);
               }),
             );
           },
           child: Card(
             child: ListTile(
               title: Text(todoList[index].title),
+              // trailing: IconButton(
+              //   icon: todoList[index].isStared
+              //       ? Icon(Icons.star)
+              //       : Icon(Icons.star_border),
+              //   onPressed: () {},
+              // ),
             ),
           ),
         );
