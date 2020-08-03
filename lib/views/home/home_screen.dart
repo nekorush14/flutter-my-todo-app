@@ -53,9 +53,24 @@ class _TodoListPageState extends State<HomeScreen> {
     return ListView.builder(
       itemCount: todoList.length,
       itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            title: Text(todoList[index].title),
+        return GestureDetector(
+          onTap: () async {
+            await Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) {
+                return TodoAddPage(todo: todoList[index]);
+              }),
+            );
+          },
+          child: Card(
+            child: ListTile(
+              title: Text(todoList[index].title),
+              // trailing: IconButton(
+              //   icon: todoList[index].isStared
+              //       ? Icon(Icons.star)
+              //       : Icon(Icons.star_border),
+              //   onPressed: () {},
+              // ),
+            ),
           ),
         );
       },
