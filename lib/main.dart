@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_todo_app/views/home/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: HomeScreen(),
+      // home: HomeScreen(),
     );
   }
 }
