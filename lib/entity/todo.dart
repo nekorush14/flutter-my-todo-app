@@ -1,30 +1,37 @@
 class Todo {
-  int id;
-  String title;
-  String detail;
-  bool isStared;
-  bool isDone;
+  int _id;
+  String _title;
+  String _details;
+  bool _isStared;
+  bool _isDone;
 
-  Todo(
-      {this.id,
-      this.title,
-      this.detail,
-      this.isStared = false,
-      this.isDone = false});
+  Todo(int id, String title, String details, bool isStared, bool isDone) {
+    this._id = id;
+    this._title = title;
+    this._details = details;
+    this._isStared = isStared;
+    this._isDone = isDone;
+  }
+
+  int get id => this._id;
+  String get title => this._title;
+  String get details => this._details;
+  bool get isStared => this._isStared;
+  bool get isDone => this._isDone;
 
   factory Todo.fromDB(Map<String, dynamic> data) => Todo(
-        id: data['id'],
-        title: data['title'],
-        detail: data['detail'],
-        isStared: data['isStared'],
-        isDone: data['is_done'] == 1 ? true : false,
+        data['id'],
+        data['title'],
+        data['detail'],
+        data['isStared'],
+        data['is_done'] == 1 ? true : false,
       );
 
   Map<String, dynamic> toDBFormat() => {
-        "id": this.id,
-        "title": this.title,
-        "details": this.detail,
-        "is_stared": this.isStared,
-        "is_done": this.isDone ? 1 : 0,
+        "id": this._id,
+        "title": this._title,
+        "details": this._details,
+        "is_stared": this._isStared,
+        "is_done": this._isDone ? 1 : 0,
       };
 }
